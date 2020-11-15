@@ -23,7 +23,7 @@ router.get("/search", (req, res) => {
   const inputValue = postMudule.inputValue;
   console.log(inputValue);
   (async () => {
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.setRequestInterception(true);
     page.on("request", (req) => {
