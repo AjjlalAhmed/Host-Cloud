@@ -1,5 +1,6 @@
 // Loading thing we neeed
 const express = require("express");
+const env = require("dotenv").config
 const ejs = require("ejs");
 const postMudule = require("./Routes/postRoutes")
 // Create app
@@ -15,7 +16,7 @@ const postRoutes = postMudule.router;
 app.use("/", getRoutes);
 app.use("/api/", postRoutes);
 // Create Port
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
