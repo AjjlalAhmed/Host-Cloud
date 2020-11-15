@@ -1,0 +1,317 @@
+// max width 930px
+@media (max-width: 930px) {
+  #landing-sec {
+    header {
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 100px auto;
+      border: 1px solid transparent;
+      position: fixed;
+      .logo {
+        @include grid-position(#{1 / 2}, #{1 / 2});
+        align-self: center;
+        justify-self: center;
+      }
+      #nav-menu {
+        @include grid-position(#{1 / 4}, #{2 / 3});
+        justify-self: center;
+        background: $secondary-color;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        max-height: 0px;
+        transition: max-height 0.5s ease-in-out;
+        overflow: hidden;
+        ul {
+          li {
+            display: block;
+            padding: 20px 0px;
+            text-align: center;
+            a {
+              color: #000;
+              font-weight: 700;
+            }
+          }
+          .user-ul {
+            display: block;
+            text-align: center;
+            padding-bottom: 10px;
+            .user-li {
+              display: inline-block;
+              padding: 10px;
+              text-transform: uppercase;
+              a {
+                background: $primary-color;
+                padding: 10px;
+                color: $secondary-color;
+                border-radius: 3px;
+              }
+            }
+          }
+        }
+      }
+      #btn {
+        @include grid-position(#{2 / 3}, #{1 / 2});
+        justify-self: center;
+      }
+      .burger-menu {
+        display: block;
+        @include grid-position(#{3 / 4}, #{1 / 2});
+        align-self: center;
+        justify-self: center;
+
+        .bar {
+          background: #fff;
+          width: 30px;
+          height: 5px;
+          margin: 3px;
+          display: block;
+        }
+      }
+    }
+  }
+}
+// max width 620px
+@media (max-width: 620px) {
+  #landing-sec {
+    header {
+      grid-template-columns: 1fr 1fr;
+      #btn {
+        display: none;
+      }
+      #nav-menu {
+        @include grid-position(#{1 / 3}, #{2 / 3});
+      }
+      .logo {
+        @include grid-position(#{1 / 2}, #{1 / 2});
+      }
+      .burger-menu {
+        @include grid-position(#{2 / 3}, #{1 / 2});
+        justify-self: right;
+        padding-right: 40px;
+      }
+    }
+    .showcase {
+      .showcase-content {
+        #form {
+          .search {
+            width: 100%;
+            flex-direction: column;
+            padding: 10px;
+            input {
+              width: 100%;
+              margin: 20px 0px;
+            }
+            .search-btn {
+              width: 100%;
+            }
+          }
+          .form-control {
+            flex-direction: column;
+            align-items: center;
+          }
+        }
+      }
+    }
+  }
+  #main {
+    #contact {
+      .contact-content {
+        .sides {
+          .left-contact {
+            width: 100%;
+            padding: 20px;
+          }
+          .right-contact {
+            .contact-icon {
+              ul {
+                li {
+                  font-size: 0.9rem;
+                  span {
+                    font-size: 1rem;
+                    padding: 15px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// max width 520px
+@media (max-width: 520px) {
+  #main {
+    #feature {
+      .feature-content {
+        .feature-card {
+          padding: 20px;
+          text-align: center;
+          .card {
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 30px 10px;
+          }
+        }
+      }
+    }
+  }
+  #footer {
+    .footer-content {
+      .footer-navs {
+        justify-content: left;
+        padding: 20px;
+      }
+    }
+  }
+}
+// max width 400px
+@media (max-width: 400px) {
+  #landing-sec {
+    .showcase {
+      .showcase-content {
+        #form {
+          #result {
+            justify-content: space-around;
+            width: 98%;
+            margin: auto;
+            position: relative;
+            overflow: hidden;
+            flex-wrap: wrap;
+            P {
+              padding: 10px 5px;
+            }
+            .site-name {
+              overflow: hidden;
+              white-space: nowrap;
+              max-width: 100px;
+            }
+          }
+        }
+      }
+    }
+  }
+  #main {
+    // Services
+    #service {
+      .service-content {
+        width: 100%;
+        padding: 10px;
+        grid-template-columns: 1fr;
+        .intro {
+          text-align: center;
+          h1 {
+            font-size: 1.5rem;
+          }
+          p {
+            font-size: 0.9rem;
+          }
+        }
+        .service-card {
+          .card {
+            .text {
+              width: 100%;
+              padding: 5px;
+            }
+          }
+        }
+      }
+    }
+    // Hosting Plan
+    #hosting-plan {
+      .hosting-plan-content {
+        .intro {
+          p {
+            font-size: 0.9rem;
+          }
+        }
+        .hosting-card {
+          .card {
+            margin: 30px 10px;
+          }
+        }
+      }
+    }
+    // Cloud Feature
+    #feature {
+      .feature-content {
+        .intro {
+          h1 {
+            font-size: 1.5rem;
+          }
+        }
+      }
+    }
+    // Testimonials
+    #testimonial {
+      background: #f7f7f7f7;
+      padding: 100px 0px;
+      .testimonial-content {
+        .intro {
+          text-align: center;
+          h3 {
+            color: $primary-color;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+          }
+          h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-transform: capitalize;
+            padding: 20px 0px;
+          }
+          padding: 20px 0px;
+        }
+        .text {
+          text-align: center;
+          .comment {
+            letter-spacing: 0.9px;
+          }
+        }
+      }
+    }
+    // About us
+    #about-us {
+      .about-content {
+        .right-about {
+          .intro {
+            h1 {
+              font-size: 1.5rem;
+              line-height: 30px;
+            }
+          }
+          .about-detail {
+            ul {
+              li {
+                display: block;
+                text-align: center;
+                button {
+                  font-size: 1rem;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    // Our team
+    #our-team {
+      .team-content {
+        .intro {
+          h1 {
+            font-size: 1.5rem;
+            line-height: 30px;
+          }
+        }
+        .team-card {
+          gap: 20px;
+          .card {
+            padding: 10px;
+          }
+        }
+      }
+    }
+  }
+}

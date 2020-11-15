@@ -1,0 +1,16 @@
+ // At rule style 
+ @import "at-rule";
+ // Landing-sec style 
+ @import "landing-sec";
+ // Main-sec style 
+ @import "main-sec";
+ // Footer-sec 
+ @import "footer-sec";
+ // MediaQuery style 
+ @import "mediaQuery";
+#container-home{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+}
+
