@@ -73,7 +73,6 @@ if (searchBtn !== null) {
           afterDot = radioName.value;
           inputValue = inputValue.split(".")[0];
           inputValue = inputValue.concat(afterDot);
-          console.log(inputValue);
           await fetch("/api/search", {
             method: "POST",
             headers: {
@@ -93,16 +92,21 @@ if (searchBtn !== null) {
           });
         }
       }
-
-      console.log(typeof inputValue);
       const siteName = document.querySelector(".site-name");
       const siteAvailability = document.querySelector(".site-availability");
-
       await fetch("/search")
         .then((response) => response.json())
         .then((data) => {
+          fetch("/api/save", {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
           siteName.innerHTML = data.domainName;
-          siteAvailability.innerHTML = data.domainavailability;
+          siteAvailability.innerHTML = data.domainAvailability;
           document.getElementById("result-info").style.display = "flex";
           const animateClass = document.querySelector("#result-info > div");
           animateClass.classList.remove("loading-animation");
@@ -120,7 +124,6 @@ if (searchBtn !== null) {
           siteAvailability.innerHTML = "something is wrong";
           siteName.innerHTML = "error";
           document.getElementById("available").style.background = "	#cc3300";
-          console.log(error);
         });
     } else {
       document.getElementById("result-info").style.display = "flex";
@@ -148,13 +151,15 @@ const aboutdetail = {
 if (detailBtn !== null) {
   detailBtn.forEach((item) => {
     item.addEventListener("click", () => {
-     detailBtn.forEach(btn => {
-        btn.classList.remove("about-active")
-     });
-     if(item.id != Object.keys(aboutdetail)){
-      let x =  document.querySelector(".about-p1").innerHTML = `${aboutdetail[`${item.id}`]}`
-      item.classList.add("about-active")
-     }
+      detailBtn.forEach((btn) => {
+        btn.classList.remove("about-active");
+      });
+      if (item.id != Object.keys(aboutdetail)) {
+        let x = (document.querySelector(".about-p1").innerHTML = `${
+          aboutdetail[`${item.id}`]
+        }`);
+        item.classList.add("about-active");
+      }
     });
   });
 }

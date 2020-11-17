@@ -2,6 +2,8 @@
 const express = require("express");
 const puppeteer = require("puppeteer");
 const postMudule = require("../Routes/postRoutes");
+const mongoose = require("mongoose");
+const searchModel = require("../models/search");
 
 // Create router
 const router = express.Router();
@@ -19,70 +21,77 @@ router.get("/contact", (req, res) => {
   res.render("contact");
 });
 // Search Request
-router.get("/search", (req, res) => {
+router.get("/search", async (req, res) => {
   const inputValue = postMudule.inputValue;
-  console.log(inputValue);
-  (async () => {
+  const domain = await searchModel.findOne({ domainName: `${inputValue}` });
+  if (domain) {
+    res.send(domain);
+  } else {
     const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.setRequestInterception(true);
-    page.on("request", (req) => {
-      if (
-        req.resourceType() == "stylesheet" ||
-        req.resourceType() == "font" ||
-        req.resourceType() == "image"
-      ) {
-        req.abort();
-      } else {
-        req.continue();
-      }
-    });
-    try {
-      let httpPage = await page.goto(`http://${inputValue}`);
-      await page.close();
-      if (typeof httpPage == "object") {
-        res.send({
-          domainName: `${inputValue}`,
-          domainavailability: "not available",
-        });
-      }
-    } catch (e) {
-      if (
-        e.message == `net::ERR_INTERNET_DISCONNECTED at http://${inputValue}`
-      ) {
-        res.send({
-          domainName: `check inernet connection`,
-          domainavailability: "error",
-        });
-        await browser.close();
-      } else if (
-        e.message == `net::ERR_NAME_NOT_RESOLVED at http://${inputValue}`
-      ) {
-        res.send({
-          domainName: `${inputValue}`,
-          domainavailability: "available",
-        });
-        await browser.close();
-      } else if (
-        e.message == `net::ERR_CONNECTION_TIMED_OUT at https://${inputValue}`
-      ) {
-        await browser.close();
-      }
-    } finally {
+    const browserWSEndpoint = browser.wsEndpoint();
+    (async () => {
       const page = await browser.newPage();
-      setTimeout( async () => {
-        await browser.close();
-      },6000)
-      let httpsPage = await page.goto(`https://${inputValue}`);
-      if (typeof httpsPage == "object") {
-      } else {
-        res.send({
-          domainName: `${inputValue}`,
-          domainavailability: "available",
-        });
-      }
-    }
-  })();
+      await page.setRequestInterception(true);
+      page.on("request", (req) => {
+        if (
+          req.resourceType() == "stylesheet" ||
+          req.resourceType() == "font" ||
+          req.resourceType() == "image"
+        ) {
+          req.abort();
+        } else {
+          req.continue();
+        }
+      });
+      let httpReq = await page.goto(`http://${inputValue}`);
+      await browser.close();
+      res.send({
+        domainName: `${inputValue}`,
+        domainAvailability: "not available",
+      });
+    })()
+      .then()
+      .catch(async (e) => {
+        try {
+          if (
+            e.message ==
+            `net::ERR_INTERNET_DISCONNECTED at http://${inputValue}`
+          ) {
+            res.send({
+              domainName: `check your connection`,
+              domainAvailability: "error",
+            });
+            await browser.close();
+          } else if (
+            e.message == `net::ERR_NAME_NOT_RESOLVED at http://${inputValue}`
+          ) {
+            const browser2 = await puppeteer.connect({ browserWSEndpoint });
+            const page = await browser.newPage();
+            let httpReqs = await page.goto(`https://${inputValue}`);
+            res.send({
+              domainName: `${inputValue}`,
+              domainAvailability: "not available",
+            });
+            await browser2.close();
+          } else if (
+            e.message == `net::ERR_CONNECTION_TIMED_OUT at http://${inputValue}`
+          ) {
+            await browser.close();
+            res.send({
+              domainName: `check your connection`,
+              domainAvailability: "error",
+            });
+          }
+        } catch (e) {
+          const browser2 = await puppeteer.connect({ browserWSEndpoint });
+          await browser2.close();
+          res.send({
+            domainName: `${inputValue}`,
+            domainAvailability: "available",
+          });
+        }
+      });
+  }
 });
 
 // Exporting router
