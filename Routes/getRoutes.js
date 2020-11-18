@@ -27,7 +27,12 @@ router.get("/search", async (req, res) => {
   if (domain) {
     res.send(domain);
   } else {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      'args' : [
+        '--no-sandbox',
+        '--disable-setuid-sandbox'
+      ]
+    });
     const browserWSEndpoint = browser.wsEndpoint();
     (async () => {
       const page = await browser.newPage();
