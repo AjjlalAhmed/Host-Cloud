@@ -1,7 +1,7 @@
 // Loading thing we neeed
 const express = require("express");
 const mongoose = require("mongoose")
-const env = require("dotenv").config
+require("dotenv").config()
 const ejs = require("ejs");
 const postMudule = require("./Routes/postRoutes")
 // Create app
@@ -16,14 +16,12 @@ const postRoutes = postMudule.router;
 // Routes middleware
 app.use("/", getRoutes);
 app.use("/api/", postRoutes);
-// Connecting to DB
-mongoose.connect(
-  "mongodb://127.0.0.1:27017/siteName_db",
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  () => {
-    console.log("connected to DB");
-  }
-);
+mongoose.connect(process.env.DB, {useNewUrlParser: true ,useUnifiedTopology: true });
+mongoose.connection.once('open', function(){
+  console.log('Conection has been made!');
+}).on('error', function(error){
+    console.log('Error is: ', error);
+});
 // Create Port
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
