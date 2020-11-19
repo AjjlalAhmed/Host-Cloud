@@ -175,13 +175,11 @@ const searchBtn = document.querySelector(".search > button");
 //   });
 // }
 
-
-
 if (searchBtn !== null) {
   searchBtn.addEventListener("click", async (e) => {
     e.preventDefault();
-    getdomainData();
-    await fetch("/searchNet")
+    getdomainData().then(async () => {
+      await fetch("/searchNet")
       .then((response) => response.json())
       .then((data) => {
         getMoreDomainData(data);
@@ -220,7 +218,8 @@ if (searchBtn !== null) {
           body: JSON.stringify(data),
         });
       })
-      .then(() => {});
+  
+    });
   });
 }
 
