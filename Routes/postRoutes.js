@@ -20,8 +20,78 @@ router.post("/save", async (req, res) => {
     domainName: `${data.domainName}`,
   });
   if (domainData) {
+    res.sendStatus(200);
     return;
   } else {
+    const saveData = siteData.save((e) => {
+      if (e) {
+        res.send(e);
+      } else {
+        res.send("ok");
+      }
+    });
+  }
+});
+
+router.post("/searchNet", async (req, res) => {
+  let data = req.body;
+  let domainData = await searchModel.findOne({
+    domainName: `${data.domainName}`,
+  });
+  if (domainData) {
+    res.sendStatus(200);
+  } else {
+   
+    const siteData = new searchModel({
+      domainName: data.domainName,
+      domainAvailability: data.domainAvailability,
+    });
+    const saveData = siteData.save((e) => {
+      if (e) {
+        res.send(e);
+      } else {
+        res.send("ok");
+      }
+    });
+  }
+});
+
+router.post("/searchOrg", async (req, res) => {
+  let data = req.body;
+  let domainData = await searchModel.findOne({
+    domainName: `${data.domainName}`,
+  });
+  if (domainData) {
+    res.sendStatus(200);
+  } else {
+    let data = req.body;
+    const siteData = new searchModel({
+      domainName: data.domainName,
+      domainAvailability: data.domainAvailability,
+    });
+    const saveData = siteData.save((e) => {
+      if (e) {
+        res.send(e);
+      } else {
+        res.send("ok");
+      }
+    });
+  }
+});
+
+router.post("/searchIn", async (req, res) => {
+  let data = req.body;
+  let domainData = await searchModel.findOne({
+    domainName: `${data.domainName}`,
+  });
+  if (domainData) {
+    res.sendStatus(200);
+  } else {
+    let data = req.body;
+    const siteData = new searchModel({
+      domainName: data.domainName,
+      domainAvailability: data.domainAvailability,
+    });
     const saveData = siteData.save((e) => {
       if (e) {
         res.send(e);

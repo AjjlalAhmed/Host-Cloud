@@ -59,85 +59,286 @@ prevBtn.addEventListener("click", () => {
 
 // Search Domain function
 const searchBtn = document.querySelector(".search > button");
+// if (searchBtn == null) {
+//   searchBtn.addEventListener("click", async (e) => {
+//     e.preventDefault();
+//     document.getElementById("result-info").style.display = "flex";
+//     const animateClass = document.querySelector("#result-info > div");
+//     animateClass.classList.add("loading-animation");
+//     let inputValue = document.querySelector(".search > input").value;
+//     if (inputValue.includes(`.`)) {
+//       let radioNames = document.querySelectorAll("input[name='radio-dots']");
+//       for (const radioName of radioNames) {
+//         if (radioName.checked) {
+//           afterDot = radioName.value;
+//           inputValue = inputValue.split(".")[0];
+//           inputValue = inputValue.concat(afterDot);
+//           await fetch("/api/search", {
+//             method: "POST",
+//             headers: {
+//               Accept: "application/json",
+//               "Content-Type": "application/json",
+//             },
+//             body: JSON.stringify([inputValue]),
+//           });
+//         } else {
+//           await fetch("/api/search", {
+//             method: "POST",
+//             headers: {
+//               Accept: "application/json",
+//               "Content-Type": "application/json",
+//             },
+//             body: JSON.stringify([inputValue]),
+//           });
+//         }
+//       }
+//       const siteName = document.querySelector(".site-name");
+//       const siteAvailability = document.querySelector(".site-availability");
+//       await fetch("/search")
+//         .then((response) => response.json())
+//         .then((data) => {
+//           fetch("/api/save", {
+//             method: "POST",
+//             headers: {
+//               Accept: "application/json",
+//               "Content-Type": "application/json",
+//             },
+//             body: JSON.stringify(data),
+//           });
+//           siteName.innerHTML = data.domainName;
+//           siteAvailability.innerHTML = data.domainAvailability;
+//           document.getElementById("result-info").style.display = "flex";
+//           const animateClass = document.querySelector("#result-info > div");
+//           animateClass.classList.remove("loading-animation");
+//           if (siteAvailability.innerHTML == "available") {
+//             document.getElementById("available").style.background = "#6CA468";
+//           } else {
+//             document.getElementById("available").style.background = "	#cc3300";
+//           }
+//         })
+//         .catch((error) => {
+//           document.getElementById("result").style.display = "flex";
+//           document.getElementById("result-info").style.display = "flex";
+//           const animateClass = document.querySelector("#result-info > div");
+//           animateClass.classList.remove("loading-animation");
+//           siteAvailability.innerHTML = "something is wrong";
+//           siteName.innerHTML = "error";
+//           document.getElementById("available").style.background = "	#cc3300";
+//         });
+//     } else {
+//       document.getElementById("result-info").style.display = "flex";
+//       const animateClass = document.querySelector("#result-info > div");
+//       animateClass.classList.remove("loading-animation");
+//       const siteName = document.querySelector(".site-name");
+//       const siteAvailability = document.querySelector(".site-availability");
+//       document.getElementById("result").style.display = "flex";
+//       siteAvailability.innerHTML = "error";
+//       siteName.innerHTML = "missing dot";
+//       document.getElementById("available").style.background = "	#cc3300";
+//     }
+//     await fetch("/searchNet")
+//       .then((response) => response.json())
+//       .then((data) => {
+//         fetch("/api/searchNet", {
+//           method: "POST",
+//           headers: {
+//             Accept: "application/json",
+//             "Content-Type": "application/json",
+//           },
+//           body: JSON.stringify(data),
+//         });
+//       });
+//     await fetch("/searchOrg")
+//       .then((response) => response.json())
+//       .then((data) => {
+//         fetch("/api/searchNet", {
+//           method: "POST",
+//           headers: {
+//             Accept: "application/json",
+//             "Content-Type": "application/json",
+//           },
+//           body: JSON.stringify(data),
+//         });
+//       });
+//     await fetch("/searchIn")
+//       .then((response) => response.json())
+//       .then((data) => {
+//         fetch("/api/searchIn", {
+//           method: "POST",
+//           headers: {
+//             Accept: "application/json",
+//             "Content-Type": "application/json",
+//           },
+//           body: JSON.stringify(data),
+//         });
+//       });
+//   });
+// }
+
+
+
 if (searchBtn !== null) {
   searchBtn.addEventListener("click", async (e) => {
     e.preventDefault();
-    document.getElementById("result-info").style.display = "flex";
-    const animateClass = document.querySelector("#result-info > div");
-    animateClass.classList.add("loading-animation");
-    let inputValue = document.querySelector(".search > input").value;
-    if (inputValue.includes(`.`)) {
-      let radioNames = document.querySelectorAll("input[name='radio-dots']");
-      for (const radioName of radioNames) {
-        if (radioName.checked) {
-          afterDot = radioName.value;
-          inputValue = inputValue.split(".")[0];
-          inputValue = inputValue.concat(afterDot);
-          await fetch("/api/search", {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify([inputValue]),
-          });
-        } else {
-          await fetch("/api/search", {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify([inputValue]),
-          });
-        }
-      }
-      const siteName = document.querySelector(".site-name");
-      const siteAvailability = document.querySelector(".site-availability");
-      await fetch("/search")
-        .then((response) => response.json())
-        .then((data) => {
-          fetch("/api/save", {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-          });
-          siteName.innerHTML = data.domainName;
-          siteAvailability.innerHTML = data.domainAvailability;
-          document.getElementById("result-info").style.display = "flex";
-          const animateClass = document.querySelector("#result-info > div");
-          animateClass.classList.remove("loading-animation");
-          if (siteAvailability.innerHTML == "available") {
-            document.getElementById("available").style.background = "#6CA468";
-          } else {
-            document.getElementById("available").style.background = "	#cc3300";
-          }
-        })
-        .catch((error) => {
-          document.getElementById("result").style.display = "flex";
-          document.getElementById("result-info").style.display = "flex";
-          const animateClass = document.querySelector("#result-info > div");
-          animateClass.classList.remove("loading-animation");
-          siteAvailability.innerHTML = "something is wrong";
-          siteName.innerHTML = "error";
-          document.getElementById("available").style.background = "	#cc3300";
+    getdomainData();
+    await fetch("/searchNet")
+      .then((response) => response.json())
+      .then((data) => {
+        getMoreDomainData(data);
+        fetch("/api/searchNet", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
         });
-    } else {
-      document.getElementById("result-info").style.display = "flex";
-      const animateClass = document.querySelector("#result-info > div");
-      animateClass.classList.remove("loading-animation");
-      const siteName = document.querySelector(".site-name");
-      const siteAvailability = document.querySelector(".site-availability");
-      document.getElementById("result").style.display = "flex";
-      siteAvailability.innerHTML = "error";
-      siteName.innerHTML = "missing dot";
-      document.getElementById("available").style.background = "	#cc3300";
-    }
+      });
+    await fetch("/searchOrg")
+      .then((response) => response.json())
+      .then((data) => {
+        getMoreDomainData(data);
+        fetch("/api/searchNet", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+      });
+    await fetch("/searchIn")
+      .then((response) => response.json())
+      .then((data) => {
+        getMoreDomainData(data);
+        fetch("/api/searchIn", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+      })
+      .then(() => {});
   });
 }
+
+async function getdomainData() {
+  document.getElementById("result-info").style.display = "flex";
+  const animateClass = document.querySelector("#result-info > div");
+  animateClass.classList.add("loading-animation");
+  let inputValue = document.querySelector(".search > input").value;
+  if (inputValue.includes(`.`)) {
+    let radioNames = document.querySelectorAll("input[name='radio-dots']");
+    for (const radioName of radioNames) {
+      if (radioName.checked) {
+        afterDot = radioName.value;
+        inputValue = inputValue.split(".")[0];
+        inputValue = inputValue.concat(afterDot);
+        await fetch("/api/search", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify([inputValue]),
+        });
+      } else {
+        await fetch("/api/search", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify([inputValue]),
+        });
+      }
+    }
+    const resultDiv = document.getElementById("result");
+    resultDiv.innerHTML = "";
+    const siteName = document.createElement("p");
+    const siteAvailability = document.createElement("p");
+    const resultWraper = document.createElement("div");
+    resultWraper.classList.add("result-wraper");
+    resultWraper.appendChild(siteName);
+    resultWraper.appendChild(siteAvailability);
+    siteAvailability.style.padding = "10px";
+    siteName.style.padding = "10px";
+    resultDiv.appendChild(resultWraper);
+    await fetch("/search")
+      .then((response) => response.json())
+      .then((data) => {
+        fetch("/api/save", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        siteName.textContent = data.domainName;
+        siteAvailability.textContent = data.domainAvailability;
+        siteName.classList.add("siteName");
+        siteAvailability.classList.add("siteAvailability");
+        document.getElementById("result-info").style.display = "flex";
+        const animateClass = document.querySelector("#result-info > div");
+        animateClass.classList.remove("loading-animation");
+        if (siteAvailability.textContent == "available") {
+          siteAvailability.style.background = "#6CA468";
+        } else {
+          siteAvailability.style.background = "	#cc3300";
+        }
+      })
+      .catch((error) => {
+        document.getElementById("result-info").style.display = "flex";
+        const animateClass = document.querySelector("#result-info > div");
+        animateClass.classList.remove("loading-animation");
+        siteAvailability.textContent = "something is wrong";
+        siteName.textContent = "error";
+        siteAvailability.style.background = "	#cc3300";
+      });
+  } else {
+    document.getElementById("result-info").style.display = "flex";
+    animateClass.classList.remove("loading-animation");
+    const resultDiv = document.getElementById("result");
+    resultDiv.innerHTML = "";
+    const siteName = document.createElement("p");
+    const siteAvailability = document.createElement("p");
+    siteAvailability.style.padding = "10px";
+    siteName.style.padding = "10px";
+    resultDiv.appendChild(siteName);
+    resultDiv.appendChild(siteAvailability);
+    siteAvailability.textContent = "error";
+    siteName.textContent = "missing dot";
+    siteAvailability.style.background = "	#cc3300";
+  }
+}
+function getMoreDomainData(data) {
+  const resultDiv = document.getElementById("result");
+  const siteName = document.createElement("p");
+  const siteAvailability = document.createElement("p");
+  siteAvailability.style.padding = "10px";
+  siteName.style.padding = "10px";
+  const resultWraper = document.createElement("div");
+  resultWraper.classList.add("result-wraper");
+  resultWraper.appendChild(siteName);
+  resultWraper.appendChild(siteAvailability);
+  resultDiv.appendChild(resultWraper);
+  siteName.textContent = data.domainName;
+  siteAvailability.textContent = data.domainAvailability;
+  siteName.classList.add("siteName");
+  siteAvailability.classList.add("siteAvailability");
+  document.getElementById("result-info").style.display = "flex";
+  const animateClass = document.querySelector("#result-info > div");
+  animateClass.classList.remove("loading-animation");
+  if (siteAvailability.textContent == "available") {
+    siteAvailability.style.background = "#6CA468";
+  } else {
+    siteAvailability.style.background = "	#cc3300";
+  }
+}
+
 // About detail funtion
 const detailBtn = document.querySelectorAll(".about-detail > ul > li > button");
 const aboutdetail = {
