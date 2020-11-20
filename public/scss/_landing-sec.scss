@@ -67,8 +67,12 @@
         text-transform: uppercase;
         font-size: 0.9rem;
         font-weight: 500;
-        color: #fff;
+        
         margin: 0px 5px;
+        a{
+          text-decoration: none;
+          color: #fff;
+        }
       }
       .btn-login {
         background: transparent;

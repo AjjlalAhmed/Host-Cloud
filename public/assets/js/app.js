@@ -59,169 +59,52 @@ prevBtn.addEventListener("click", () => {
 
 // Search Domain function
 const searchBtn = document.querySelector(".search > button");
-// if (searchBtn == null) {
-//   searchBtn.addEventListener("click", async (e) => {
-//     e.preventDefault();
-//     document.getElementById("result-info").style.display = "flex";
-//     const animateClass = document.querySelector("#result-info > div");
-//     animateClass.classList.add("loading-animation");
-//     let inputValue = document.querySelector(".search > input").value;
-//     if (inputValue.includes(`.`)) {
-//       let radioNames = document.querySelectorAll("input[name='radio-dots']");
-//       for (const radioName of radioNames) {
-//         if (radioName.checked) {
-//           afterDot = radioName.value;
-//           inputValue = inputValue.split(".")[0];
-//           inputValue = inputValue.concat(afterDot);
-//           await fetch("/api/search", {
-//             method: "POST",
-//             headers: {
-//               Accept: "application/json",
-//               "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify([inputValue]),
-//           });
-//         } else {
-//           await fetch("/api/search", {
-//             method: "POST",
-//             headers: {
-//               Accept: "application/json",
-//               "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify([inputValue]),
-//           });
-//         }
-//       }
-//       const siteName = document.querySelector(".site-name");
-//       const siteAvailability = document.querySelector(".site-availability");
-//       await fetch("/search")
-//         .then((response) => response.json())
-//         .then((data) => {
-//           fetch("/api/save", {
-//             method: "POST",
-//             headers: {
-//               Accept: "application/json",
-//               "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify(data),
-//           });
-//           siteName.innerHTML = data.domainName;
-//           siteAvailability.innerHTML = data.domainAvailability;
-//           document.getElementById("result-info").style.display = "flex";
-//           const animateClass = document.querySelector("#result-info > div");
-//           animateClass.classList.remove("loading-animation");
-//           if (siteAvailability.innerHTML == "available") {
-//             document.getElementById("available").style.background = "#6CA468";
-//           } else {
-//             document.getElementById("available").style.background = "	#cc3300";
-//           }
-//         })
-//         .catch((error) => {
-//           document.getElementById("result").style.display = "flex";
-//           document.getElementById("result-info").style.display = "flex";
-//           const animateClass = document.querySelector("#result-info > div");
-//           animateClass.classList.remove("loading-animation");
-//           siteAvailability.innerHTML = "something is wrong";
-//           siteName.innerHTML = "error";
-//           document.getElementById("available").style.background = "	#cc3300";
-//         });
-//     } else {
-//       document.getElementById("result-info").style.display = "flex";
-//       const animateClass = document.querySelector("#result-info > div");
-//       animateClass.classList.remove("loading-animation");
-//       const siteName = document.querySelector(".site-name");
-//       const siteAvailability = document.querySelector(".site-availability");
-//       document.getElementById("result").style.display = "flex";
-//       siteAvailability.innerHTML = "error";
-//       siteName.innerHTML = "missing dot";
-//       document.getElementById("available").style.background = "	#cc3300";
-//     }
-//     await fetch("/searchNet")
-//       .then((response) => response.json())
-//       .then((data) => {
-//         fetch("/api/searchNet", {
-//           method: "POST",
-//           headers: {
-//             Accept: "application/json",
-//             "Content-Type": "application/json",
-//           },
-//           body: JSON.stringify(data),
-//         });
-//       });
-//     await fetch("/searchOrg")
-//       .then((response) => response.json())
-//       .then((data) => {
-//         fetch("/api/searchNet", {
-//           method: "POST",
-//           headers: {
-//             Accept: "application/json",
-//             "Content-Type": "application/json",
-//           },
-//           body: JSON.stringify(data),
-//         });
-//       });
-//     await fetch("/searchIn")
-//       .then((response) => response.json())
-//       .then((data) => {
-//         fetch("/api/searchIn", {
-//           method: "POST",
-//           headers: {
-//             Accept: "application/json",
-//             "Content-Type": "application/json",
-//           },
-//           body: JSON.stringify(data),
-//         });
-//       });
-//   });
-// }
-
 if (searchBtn !== null) {
   searchBtn.addEventListener("click", async (e) => {
     e.preventDefault();
     getdomainData().then(async () => {
       await fetch("/searchNet")
-      .then((response) => response.json())
-      .then((data) => {
-        getMoreDomainData(data);
-        fetch("/api/searchNet", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
+        .then((response) => response.json())
+        .then((data) => {
+          getMoreDomainData(data);
+          fetch("/api/searchNet", {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
         });
-      });
-    await fetch("/searchOrg")
-      .then((response) => response.json())
-      .then((data) => {
-        getMoreDomainData(data);
-        fetch("/api/searchNet", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
+      await fetch("/searchOrg")
+        .then((response) => response.json())
+        .then((data) => {
+          getMoreDomainData(data);
+          fetch("/api/searchNet", {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
         });
-      });
-    await fetch("/searchIn")
-      .then((response) => response.json())
-      .then((data) => {
-        getMoreDomainData(data);
-        fetch("/api/searchIn", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }).then(() =>{
-          const animateClass = document.querySelector("#result-info > div");
-          animateClass.classList.remove("loading-animation");
+      await fetch("/searchIn")
+        .then((response) => response.json())
+        .then((data) => {
+          getMoreDomainData(data);
+          fetch("/api/searchIn", {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }).then(() => {
+            const animateClass = document.querySelector("#result-info > div");
+            animateClass.classList.remove("loading-animation");
+          });
         });
-      })
-  
     });
   });
 }
@@ -285,7 +168,7 @@ async function getdomainData() {
         siteName.classList.add("siteName");
         siteAvailability.classList.add("siteAvailability");
         document.getElementById("result-info").style.display = "flex";
-      
+
         if (siteAvailability.textContent == "available") {
           siteAvailability.style.background = "#6CA468";
         } else {

@@ -20,6 +20,12 @@ router.get("/service", (req, res) => {
 router.get("/contact", (req, res) => {
   res.render("contact");
 });
+router.get("/signUp", (req, res) => {
+  res.render("signUp");
+});
+router.get("/logIn", (req, res) => {
+  res.render("logIn");
+});
 
 async function saveDomain(res, inputValue) {
   const browser = await puppeteer.launch({
@@ -97,50 +103,6 @@ router.get("/search", async (req, res) => {
     res.send(domain);
   } else {
     saveDomain(res, inputValue);
-  }
-});
-
-router.get("/searchMore", (req, res) => {
-  const inputValue = postMudule.inputValue;
-  let x = inputValue.split(".")[0];
-  let y = [x.concat(".net"), x.concat(".in"), x.concat(".org")];
-  for (let i = 0; i < y.length; i++) {
-    (async () => {
-      const browser = await puppeteer.launch({ headless: false });
-      const page = await browser.newPage();
-      try {
-        await page.goto(`https://${y[i]}`);
-
-        await browser.close();
-        res.send({
-          domainName: `${y[i]}`,
-          domainAvailability: "not available",
-        });
-      } catch (e) {
-        if (e) {
-          if ((e.message = `net::ERR_NAME_NOT_RESOLVED at http://${y[i]}`)) {
-            try {
-              await page.goto(`http://${y[i]}`);
-
-              res.send({
-                domainName: `${y[i]}`,
-                domainAvailability: "not available",
-              });
-              await browser.close();
-            } catch (e) {
-              await browser.close();
-              res.send({
-                domainName: `${y[i]}`,
-                domainAvailability: "available",
-              });
-            }
-          }
-          if ((e.message = `net::ERR_CONNECTION_REFUSED at http://${y[i]}`)) {
-            await browser.close();
-          }
-        }
-      }
-    })();
   }
 });
 

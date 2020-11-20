@@ -561,4 +561,90 @@
       height: 60vh;
     }
   }
+  // SignUp form
+  #signup-form{
+    background: url("../images/banner-bg.jpg");;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    padding: 20px;
+    .signup-title{
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 50px 0px;
+      h1{
+        text-transform: uppercase;
+        color: $secondary-color;
+        font-size: 3rem;
+        padding: 20px 0px;
+      }
+      p{
+        color: $secondary-color;
+        font-size: .9rem;
+        font-weight: 300;
+        line-height: 25px;
+      }
+    }
+    .signup-form-control{
+      display: flex;
+      justify-content: center;
+      background-color: #fff;
+      padding: 30px;
+      max-width: 400px;
+      margin: auto;
+      input{
+        width: 100%;
+        padding: 10px;
+      }
+    }
+    .signup-btn{
+      display: flex;
+      justify-content: center;
+      background-color: $secondary-color;
+      max-width: 400px;
+      margin: auto;
+      padding: 10px;
+      button{
+        padding: 10px;
+        width: 100%;
+        border: 1px solid transparent;
+        background: #3834b3;
+        text-transform: uppercase;
+        font-size: 1rem;
+        font-weight: 600;
+        color: $secondary-color;
+      }
+    }
+    nav{
+      display: flex;
+      justify-content: center;
+      padding: 20px 0px;
+      background-color: $secondary-color;
+      max-width: 400px;
+      margin: auto;
+      ul{
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        li{
+          display: inline-block;
+          padding: 10px;
+          list-style: none;
+          text-transform: capitalize;
+          padding: 10px 40px;
+          background: $primary-color;
+          color: $secondary-color;
+          border-radius: 30px;
+          a{
+            text-decoration: none;
+            color: $secondary-color;
+           
+            font-size: 1.3rem;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  } 
 }
