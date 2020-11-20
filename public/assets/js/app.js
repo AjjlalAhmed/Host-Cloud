@@ -216,6 +216,9 @@ if (searchBtn !== null) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(data),
+        }).then(() =>{
+          const animateClass = document.querySelector("#result-info > div");
+          animateClass.classList.remove("loading-animation");
         });
       })
   
@@ -264,6 +267,7 @@ async function getdomainData() {
     resultWraper.appendChild(siteAvailability);
     siteAvailability.style.padding = "10px";
     siteName.style.padding = "10px";
+    siteName.style.textTransform = "lowercase";
     resultDiv.appendChild(resultWraper);
     await fetch("/search")
       .then((response) => response.json())
@@ -281,8 +285,7 @@ async function getdomainData() {
         siteName.classList.add("siteName");
         siteAvailability.classList.add("siteAvailability");
         document.getElementById("result-info").style.display = "flex";
-        const animateClass = document.querySelector("#result-info > div");
-        animateClass.classList.remove("loading-animation");
+      
         if (siteAvailability.textContent == "available") {
           siteAvailability.style.background = "#6CA468";
         } else {
@@ -295,6 +298,7 @@ async function getdomainData() {
         animateClass.classList.remove("loading-animation");
         siteAvailability.textContent = "something is wrong";
         siteName.textContent = "error";
+        siteName.style.textTransform = "lowercase";
         siteAvailability.style.background = "	#cc3300";
       });
   } else {
@@ -310,6 +314,7 @@ async function getdomainData() {
     resultDiv.appendChild(siteAvailability);
     siteAvailability.textContent = "error";
     siteName.textContent = "missing dot";
+    siteName.style.textTransform = "lowercase";
     siteAvailability.style.background = "	#cc3300";
   }
 }
@@ -325,12 +330,11 @@ function getMoreDomainData(data) {
   resultWraper.appendChild(siteAvailability);
   resultDiv.appendChild(resultWraper);
   siteName.textContent = data.domainName;
+  siteName.style.textTransform = "lowercase";
   siteAvailability.textContent = data.domainAvailability;
   siteName.classList.add("siteName");
   siteAvailability.classList.add("siteAvailability");
   document.getElementById("result-info").style.display = "flex";
-  const animateClass = document.querySelector("#result-info > div");
-  animateClass.classList.remove("loading-animation");
   if (siteAvailability.textContent == "available") {
     siteAvailability.style.background = "#6CA468";
   } else {
